@@ -3,18 +3,13 @@ const sarchFood = () => {
     const searchText = searchFeild.value;
     // console.log(searchText);
     searchFeild.value = '';
-
     const url = `https://www.themealdb.com/api/json/v1/1/search.php?s=${searchText}`;
-
-    const res = await fetch(url);
-    const data = await res.json();
-    displaySearchResult(data.meals);
-
-    // fetch(url)
-    //     .then(res => res.json())
-    //     .then(data => displaySearchFish(data.meals))
+    // console.log(url)
+    fetch(url)
+        .then(res => res.json())
+        .then(data => displaySearchFish(data.meals))
+        .catch(error => console.log(error))
 }
-
 const displaySearchResult = meals => {
     const searchResult = document.getElementById('search-result');
     searchResult.textContent = '';

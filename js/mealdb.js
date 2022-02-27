@@ -1,15 +1,30 @@
+document.getElementById('error-massage').style.display = 'none';
+
 const sarchFood = () => {
     const searchFeild = document.getElementById('search-field');
     const searchText = searchFeild.value;
-    // console.log(searchText);
+    // clear data
     searchFeild.value = '';
+    document.getElementById('error-massage').style.display = 'none';
+    if (searchText == '') {
+        //please write something to display 
+    }
+    else {
+        //load data
+        const url = `https://www.themealdb.com/api/json/v1/1/search.php?s=${searchText}`;
+        fetch(url)
+            .then(res => res.json())
+            .then(data => displaySearchFish(data.meals))
+            .catch(error => displayError(error))
+    }
 
-    const url = `https://www.themealdb.com/api/json/v1/1/search.php?s=${searchText}`;
-    // console.log(url)
-    fetch(url)
-        .then(res => res.json())
-        .then(data => displaySearchFish(data.meals))
 }
+
+const displayError = error => {
+    console.log(error)
+    document.getElementById('error-massage').style.display = 'block';
+}
+
 
 const displaySearchFish = meals => {
     const searchResult = document.getElementById('search-result');
